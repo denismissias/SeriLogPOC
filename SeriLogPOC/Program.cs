@@ -18,13 +18,12 @@ namespace SeriLogPOC
 
             Log log = new Log
             {
-                Level = LogEventLevel.Information,
                 EventId = "Teste",
                 Message = new Message
                 {
                     RunId = Guid.NewGuid()
                 },
-                Exception = new Exception("Teste", new DivideByZeroException())
+                Exception = new DivideByZeroException()
             };
 
             ILogger logger = new LoggerConfiguration()
@@ -34,13 +33,13 @@ namespace SeriLogPOC
                 //.MinimumLevel.Verbose()
                 .CreateLogger();
 
-            logger.Verbose(usuario.Name, usuario.Age);
+            //logger.Verbose(usuario.Name, usuario.Age);
 
-            logger.Debug("Início do log");
+            //logger.Debug("Início do log");
 
-            logger.Information("{@l} {@i} {@m}", log.Level, log.EventId, log.Message);
+            //logger.Information("{@l} {@i} {@m}", log.Level, log.EventId, log.Message);
 
-            logger.Error("{@i} {@m} {@x}", log.EventId, log.Message, log.Exception);
+            logger.Error("{@Log}", log, usuario);
 
             logger.Debug("Fim do log");
         }
@@ -48,8 +47,6 @@ namespace SeriLogPOC
 
     public class Log
     {
-        public LogEventLevel Level { get; set; }
-
         public Exception Exception { get; set; }
 
         public string EventId { get; set; }
